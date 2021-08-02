@@ -2,7 +2,9 @@
   <div>
     <h3>
       Theme : {{theme}}
+
     </h3>
+    <router-link to="/about">About</router-link>
   </div>
 </template>
 

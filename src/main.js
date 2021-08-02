@@ -21,7 +21,8 @@ const routes = setupLayouts(generatedRoutes)
 export const createApp = ViteSSG(
   App,
   { routes },
-  ({ app, router, initialState }) => {
+  (ctx) => {
+    let {app,initialState,router} = ctx
     app.use(store)
     if (import.meta.env.SSR) {
       initialState.state = store.state
@@ -37,7 +38,7 @@ export const createApp = ViteSSG(
       next()
     })
     // install all modules under `modules/`
-    Object.values(import.meta.globEager('./modules/*.js')).map(i => i.install?.(app))
+    Object.values(import.meta.globEager('./modules/*.js')).map(i => i.install?.(ctx))
   },
   {
     transformState(state) {
